@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URISyntaxException;
+
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
@@ -24,7 +26,7 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity createAccount(@RequestBody Account account){
+    public ResponseEntity createAccount(@RequestBody Account account) throws URISyntaxException {
         return ResponseEntity.ok(accountService.createAccount(account));
     }
 
@@ -46,5 +48,10 @@ public class AccountController {
     @DeleteMapping
     public ResponseEntity deleteAccount(@RequestParam long id){
         return ResponseEntity.ok(accountService.deleteAccount(id));
+    }
+
+    @PutMapping("/webT")
+    public ResponseEntity updateAccountAmount(@RequestParam String accountNumber,@RequestParam long amount){
+        return ResponseEntity.ok(accountService.updateAccountAmount(accountNumber, amount));
     }
 }
